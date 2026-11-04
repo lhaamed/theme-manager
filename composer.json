@@ -5,12 +5,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "illuminate/console": "^11.0 || ^12.0",
-        "illuminate/filesystem": "^11.0 || ^12.0",
-        "illuminate/support": "^11.0 || ^12.0",
-        "illuminate/view": "^11.0 || ^12.0"
+        "illuminate/console": "^11.0 || ^12.0 || ^13.0",
+        "illuminate/filesystem": "^11.0 || ^12.0 || ^13.0",
+        "illuminate/support": "^11.0 || ^12.0 || ^13.0",
+        "illuminate/view": "^11.0 || ^12.0 || ^13.0"
     },
-    "require-dev": {"laravel/framework": "^11.0 || ^12.0"},
+    "require-dev": {"laravel/framework": "^11.0 || ^12.0 || ^13.0"},
     "suggest": {"livewire/livewire": "^4.0 for namespaced theme Livewire components"},
     "autoload": {"psr-4": {"lhaamed\\ThemeManager\\": "src/"}},
     "extra": {"laravel": {"providers": ["lhaamed\\ThemeManager\\ThemeServiceProvider"], "aliases": {"Theme": "lhaamed\\ThemeManager\\Facades\\Theme"}}},

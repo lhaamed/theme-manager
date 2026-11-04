@@ -2,7 +2,7 @@
 
 An independent extraction of this application's ThemeService. Composer package: `lhaamed/theme-manager`; namespace: `lhaamed\ThemeManager`.
 
-Supports Laravel 11/12 and PHP 8.2+. No database, frontend framework, application models, or Livewire dependency is required. Livewire 4 theme namespaces are registered when its namespace API is available.
+Supports Laravel 11/12 on PHP 8.2+ and Laravel 13 on PHP 8.3+. No database, frontend framework, application models, or Livewire dependency is required. Livewire 4 theme namespaces are registered when its namespace API is available.
 
 ## Installation
 
@@ -128,4 +128,4 @@ composer validate --strict
 composer test
 ```
 
-Tests create an isolated Laravel application in a temporary directory, generate multiple themes, render their Blade views, verify component registration, test invalid input and collisions, and verify scoped state and legacy manifests. No host database or `.env` is needed. GitHub Actions runs the suite on Laravel 11/12 with PHP 8.2–8.4. From this parent project, run `php lhaamed/ThemeManager/tests/run.php` to use its installed dependencies.
+Tests create an isolated Laravel application in a temporary directory, generate multiple themes, render their Blade views, verify component registration, test invalid input and collisions, and verify scoped state and legacy manifests. No host database or `.env` is needed. GitHub Actions runs the suite on Laravel 11/12 with PHP 8.2–8.4 and Laravel 13 with PHP 8.3–8.4. From this parent project, run `php lhaamed/ThemeManager/tests/run.php` to use its installed dependencies.
