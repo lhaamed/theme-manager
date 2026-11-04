@@ -1,0 +1,7 @@
+@extends('{{viewRoot}}.layouts.index')
+
+@section('content')
+    <main>
+        <h1>Welcome to {{name}}</h1>
+    </main>
+@endsection
