@@ -25,3 +25,7 @@ jobs:
       - run: composer require --dev "laravel/framework:${{ matrix.laravel }}" --no-interaction --prefer-dist
       - run: composer validate --strict
       - run: composer test
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/vite.test.mjs
