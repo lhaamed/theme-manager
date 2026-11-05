@@ -1,0 +1,2 @@
+{!! app(\lhaamed\ThemeManager\ThemeAssets::class)->render('{{root}}', '{{name}}',
+    (require resource_path('views/{{root}}/config.php'))['assets']['mode'] ?? 'inline') !!}

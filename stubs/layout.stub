@@ -4,10 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ \lhaamed\ThemeManager\Facades\Theme::getPageTitle() }}</title>
+    @include('{{viewRoot}}.includes.favicon')
+    @include('{{viewRoot}}.includes.assets')
     @stack('styles')
 </head>
 <body>
+    @include('{{viewRoot}}.includes.header')
     @yield('content')
+    @include('{{viewRoot}}.includes.footer')
     @stack('scripts')
 </body>
 </html>

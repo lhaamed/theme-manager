@@ -1,7 +1,21 @@
 @extends('{{viewRoot}}.layouts.index')
 
 @section('content')
-    <main>
-        <h1>Welcome to {{name}}</h1>
+    <main class="theme-shell">
+        <section class="theme-hero" aria-labelledby="welcome-title">
+            <span class="theme-badge"><span class="theme-dot"></span> Your theme is ready</span>
+            <h1 id="welcome-title">Welcome to {{name}}</h1>
+            <p class="theme-lead">A fresh canvas for your next idea. Your layout, styles, scripts and includes are connected.</p>
+            <div class="theme-actions">
+                <button class="theme-button" type="button" data-theme-demo-button>Test JavaScript</button>
+                <a class="theme-link" href="#getting-started">Explore your theme <span aria-hidden="true">&darr;</span></a>
+            </div>
+            <p class="theme-status" data-theme-demo-status role="status" aria-live="polite">Ready to test your scripts.</p>
+        </section>
+        <section id="getting-started" class="theme-grid" aria-label="Getting started">
+            <article class="theme-card"><span class="theme-step">01 / Layout</span><h2>Make it yours</h2><p>Edit <code>layouts/index.blade.php</code> and the header, footer and favicon includes.</p></article>
+            <article class="theme-card"><span class="theme-step">02 / Styles</span><h2>Find your style</h2><p>Start with <code>{{name}}-styles.scss</code>. The starter uses plain CSS, so it also works without a build.</p></article>
+            <article class="theme-card"><span class="theme-step">03 / Scripts</span><h2>Bring it to life</h2><p>Open <code>{{name}}-scripts.js</code> and try the button above to check that JavaScript is running.</p></article>
+        </section>
     </main>
 @endsection

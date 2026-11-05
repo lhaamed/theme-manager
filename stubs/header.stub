@@ -1,0 +1,4 @@
+<header class="theme-header theme-shell">
+    <a class="theme-brand" href="#"><span class="theme-logo" aria-hidden="true">~</span> {{name}}</a>
+    <span class="theme-caption">Built with Theme Manager</span>
+</header>

@@ -1,0 +1,17 @@
+// {{name}} starter scripts — dependency-free in both inline and Vite mode.
+function bootTheme() {
+    const button = document.querySelector('[data-theme-demo-button]');
+    const status = document.querySelector('[data-theme-demo-status]');
+    if (!button || !status || button.dataset.themeReady) return;
+    button.dataset.themeReady = 'true';
+    button.addEventListener('click', () => {
+        status.textContent = 'JavaScript is working. Welcome to {{name}}!';
+        button.textContent = 'Scripts connected';
+        status.classList.add('is-success');
+    });
+}
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootTheme, { once: true });
+} else {
+    bootTheme();
+}

@@ -26,6 +26,7 @@ class ThemeServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         if ($this->app->runningInConsole()) {
             $this->commands([MakeThemeCommand::class]);
             $this->publishes([__DIR__.'/../config/theme.php' => $this->app->configPath('theme.php')], 'theme-config');

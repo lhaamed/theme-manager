@@ -1,0 +1,4 @@
+<footer class="theme-footer theme-shell">
+    <span>&copy; {{ date('Y') }} {{name}}</span>
+    <span>Your next chapter starts here.</span>
+</footer>
