@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.2.0 — 2026-11-05
+
+- Generate theme-named `ocean-styles.scss` and `ocean-scripts.js` assets.
+- Add a responsive welcome page, shared header/footer, SVG favicon and working JavaScript demo.
+- Provide a local-only preview URL immediately after scaffolding, without route edits or a frontend build.
+- Detect standard Laravel Vite configurations and install an auto-discovering asset helper while preserving existing plugins and inputs.
+- Add explicit inline/Vite modes, declare Sass when needed, and keep inline starter support for projects without Vite.
+- Create `.gitkeep` only in empty directories and extend PHP/JavaScript integration coverage.
+
 ## v0.1.1 — 2026-11-04
 
 - Add Laravel 13 support to all Illuminate dependencies and the development framework constraint.

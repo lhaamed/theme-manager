@@ -6,13 +6,13 @@ Supports Laravel 11/12 on PHP 8.2+ and Laravel 13 on PHP 8.3+. No database, fron
 
 ## Installation
 
-This directory is the package repository root. Upload its contents to your GitHub repository, for example `lhaamed/theme-manager`, and tag a release such as `v0.1.0`. The URL below assumes you created that repository; this extraction does not publish it.
+The package repository is `https://github.com/lhaamed/theme-manager`.
 
 In a fresh Laravel application, before the package is listed on Packagist:
 
 ```sh
 composer config repositories.theme-manager vcs https://github.com/lhaamed/theme-manager
-composer require lhaamed/theme-manager:^0.1
+composer require lhaamed/theme-manager:^0.2
 ```
 
 For local development, use a Composer path repository instead:
@@ -41,14 +41,47 @@ resources/views/themes/ocean/
 ├── pages/home.blade.php
 ├── components/pagination/default.blade.php
 ├── includes/
+│   ├── header.blade.php
+│   ├── footer.blade.php
+│   ├── favicon.blade.php
+│   └── assets.blade.php
 ├── livewire/
 └── assets/
-    ├── css/theme.css
-    ├── js/theme.js
+    ├── css/ocean-styles.scss
+    ├── js/ocean-scripts.js
     └── images/
 ```
 
-`config.php` contains the theme name, unit, versions, stable version, layout view, relative component paths and pagination view. The generated layout has content, style and script slots. It renders immediately without a Vite build. Assets are source files: add them to your application's Vite inputs and reference them with `@vite` when needed. They are not automatically copied to `public`.
+`config.php` contains the theme name, unit, versions, stable version, layout view, relative component paths, pagination view and asset mode. The layout includes a responsive welcome page, header, footer, SVG favicon and an interactive button for checking JavaScript. The SCSS starter uses plain CSS, so it renders immediately even without a frontend build. `.gitkeep` files are generated only for directories that remain empty, such as `livewire` and `assets/images`.
+
+## Immediate local preview
+
+After `php artisan theme:make ocean`, start Laravel with `php artisan serve` and open `http://localhost:8000/_themes/web/ocean` with `APP_ENV=local`. The command prints this preview path. No route editing or npm build is needed to see the starter. `--unit=landing` changes the URL to `/_themes/landing/ocean`.
+
+The preview controller checks the environment on every request, including with cached routes, and returns 404 outside `local`. Set `'preview' => false` in `config/theme.php` to disable it locally too. For your real website, define an application route as shown below; the preview URL is a development convenience.
+
+## Assets and optional Vite integration
+
+```sh
+php artisan theme:make ocean                 # auto-detect standard Laravel Vite
+php artisan theme:make plain --assets=inline # no frontend configuration changes
+php artisan theme:make coral --assets=vite   # require supported Vite integration
+```
+
+In `auto` mode, the command checks for `laravel-vite-plugin` in `package.json` and a `vite.config.js`, `.ts`, `.mjs` or `.mts` using `export default defineConfig({ ... plugins: [ ... ] })`. It adds one helper import and plugin call, preserving existing inputs and other plugins. It writes `theme-manager.vite.mjs` beside the Vite config. The helper discovers named SCSS/JS entries under the themes directory, so later themes need no per-theme Vite edits. Restart an already-running Vite server after creating a theme.
+
+If no Sass compiler is declared, the command adds `sass` to `devDependencies`. Run `npm install` to install it and synchronize your lockfile, then `npm run dev` or `npm run build`. The command does not execute npm or change an npm lockfile. Generated layouts use Vite automatically once assets are available. Before the first build, the plain-CSS starter and dependency-free JS are inlined in `local` and `testing`; production in Vite mode requires a working Vite manifest/build and does not silently fall back.
+
+When Vite is absent or the configuration is dynamic/custom, `auto` leaves frontend configuration untouched and uses inline starter assets. `--assets=inline` opts out explicitly. Inline mode reads the named `.scss` and `.js` files directly: use plain CSS and dependency-free JavaScript in that mode. Sass variables, mixins, JS imports and bundler features require Vite or your own build integration. Inline mode requires your CSP to permit inline styles/scripts; use compiled external assets for a strict CSP. No files are copied to `public`.
+
+For a custom Vite configuration, add the bundled helper manually (or adapt it to your build) and set the generated manifest's `assets.mode` to `vite`:
+
+```js
+import themeManagerAssets from './vendor/lhaamed/theme-manager/resources/vite-plugin.mjs';
+
+// Add to the existing plugins array:
+themeManagerAssets({ directory: 'resources/views/themes' })
+```
 
 Themes are discovered from `theme.directory/*/config.php` on each registry lookup, including when Laravel configuration is cached. No PHP configuration file is rewritten by the command. Without an explicit default, the alphabetically first discovered theme in a unit is its default. Set an explicit default for predictable production behavior.
 
@@ -126,6 +159,7 @@ Project-specific controllers, pages, branded assets and integrations such as Bla
 composer install
 composer validate --strict
 composer test
+node --test tests/vite.test.mjs
 ```
 
 Tests create an isolated Laravel application in a temporary directory, generate multiple themes, render their Blade views, verify component registration, test invalid input and collisions, and verify scoped state and legacy manifests. No host database or `.env` is needed. GitHub Actions runs the suite on Laravel 11/12 with PHP 8.2–8.4 and Laravel 13 with PHP 8.3–8.4. From this parent project, run `php lhaamed/ThemeManager/tests/run.php` to use its installed dependencies.
